@@ -1,46 +1,47 @@
 #include <stdio.h>
 #include <stdlib.h>
+
 // Structure to store customer details for both accounts
 struct Customer {
     char name[50];
     int accountNumber;
     float currentBalance;
     float savingsBalance;
-    int DebitCard;
-    int TextMessage;
-}Customer;
+    int isDebitCardIssued;
+    int isTextMessageServiceOpted;
+};
 
 // Function to initialize a new customer
-void initializeCustomer(struct Customer*customer) {
+void initializeCustomer(struct Customer *customer) {
     printf("Enter customer name: ");
-    scanf("%s",customer.name);
+    scanf("%s", customer->name);
 
     printf("Enter account number: ");
-    scanf("%d",&customer.accountNumber);
+    scanf("%d", &customer->accountNumber);
 
     printf("Enter initial current account balance (minimum Rs 5000): ");
-    scanf("%f",&customer.currentBalance);
+    scanf("%f", &customer->currentBalance);
 
     // Ensure the minimum balance requirement is met for current account
-    if (customer.currentBalance < 5000) {
+    if (customer->currentBalance < 5000) {
         printf("Minimum current account balance requirement not met. Exiting.\n");
         exit(1);
     }
 
     printf("Enter initial savings account balance (minimum Rs 100): ");
-    scanf("%f",&customer.savingsBalance);
+    scanf("%f", &customer->savingsBalance);
 
     // Ensure the minimum balance requirement is met for savings account
-    if (customer.savingsBalance < 100) {
+    if (customer->savingsBalance < 100) {
         printf("Minimum savings account balance requirement not met. Exiting.\n");
         exit(1);
     }
 
     printf("Debit card issued? (1 for Yes, 0 for No): ");
-    scanf("%d",&customer.DebitCard);
+    scanf("%d", &customer->isDebitCardIssued);
 
     printf("Text message service opted? (1 for Yes, 0 for No): ");
-    scanf("%d",&customer.TextMessage);
+    scanf("%d", &customer->isTextMessageServiceOpted);
 }
 
 // Function to handle surcharge on negative balance for current account
@@ -79,12 +80,12 @@ void calculateSavingsInterest(struct Customer *customer) {
 
 // Function to calculate charges for debit card and text message service for savings account
 void calculateSavingsCharges(struct Customer *customer) {
-    if (customer->DebitCard) {
+    if (customer->isDebitCardIssued) {
         printf("Debit card charges applied for savings account: Rs 10\n");
         customer->savingsBalance -= 10;
     }
 
-    if (customer->TextMessage) {
+    if (customer->isTextMessageServiceOpted) {
         printf("Text message service charges applied for savings account: Rs 5\n");
         customer->savingsBalance -= 5;
     }
@@ -92,12 +93,12 @@ void calculateSavingsCharges(struct Customer *customer) {
 
 // Function to print monthly balance sheet for both accounts
 void printBalanceSheet(struct Customer *customer) {
-    printf("\n--------Monthly Balance Sheet --------\n");
-    printf("Customer Name: %s\n",customer->name);
-    printf("Account Number: %d\n",customer->accountNumber);
-    printf("Current Account Balance: Rs %.2f\n",customer->currentBalance);
-    printf("Savings Account Balance: Rs %.2f\n",customer->savingsBalance);
-    printf("----------------Ritik----------------------\n");
+    printf("\n-------- Monthly Balance Sheet --------\n");
+    printf("Customer Name: %s\n", customer->name);
+    printf("Account Number: %d\n", customer->accountNumber);
+    printf("Current Account Balance: Rs %.2f\n", customer->currentBalance);
+    printf("Savings Account Balance: Rs %.2f\n", customer->savingsBalance);
+    printf("--------------------------------------\n");
 }
 
 int main() {
